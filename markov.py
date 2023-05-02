@@ -43,10 +43,11 @@ def make_chains(content):
     chains = {}
     for index in range(len(content) - 2):
         bigram = (content[index], content[index + 1])
+        transitions = content[index + 2]
         if bigram not in chains:
-            chains[bigram] = [content[index + 2]]
+            chains[bigram] = [transitions]
         else:
-            chains[bigram].append(content[index + 2])
+            chains[bigram].append(transitions)
 
     
     # your code goes here
