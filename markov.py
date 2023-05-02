@@ -12,7 +12,7 @@ def open_and_read_file(file_path):
     global content
     content = open(file_path).read().split()
     return content
-open_and_read_file("green-eggs.txt")
+# open_and_read_file("green-eggs.txt")
 
 
 def make_chains(content):
@@ -39,7 +39,7 @@ def make_chains(content):
         >>> chains[('there','juanita')]
         [None]
     """
-
+    global chains
     chains = {}
     for index in range(len(content) - 2):
         bigram = (content[index], content[index + 1])
@@ -51,21 +51,46 @@ def make_chains(content):
 
     
     # your code goes here
-    print(chains)
+    # print(chains)
     return chains
-make_chains(content)
+# make_chains(content)
 
 def make_text(chains):
     """Return text from chains."""
 
     words = []
+    keys_list = list(chains.keys()) # makes a list of our bigrams as tuples
+    # print(keys_list)
+    random_bigram = choice(keys_list) # picks a random bigram from our list and names it
+    # print(random_bigram)
+    
+    words.extend(random_bigram)
 
+  
+    while random_bigram in chains: # While there are places to go from my current state
+        random_transition = choice(chains[random_bigram]) # picks a random value from our key (random_bigram)
+        # print(random_transition)
+        words.append(random_transition)
+        # bigram = ("Sam", "I")
+        # transition = "am?"
+
+        random_bigram = (random_bigram[1], random_transition)
+        #print(words)
+        # for key in keys_list:
+        #     if random_transition == key[0]:
+        #         words.append(key)
+
+    # print(words)
+
+
+        # if chains[] = random_transition:
     # your code goes here
 
     return ' '.join(words)
 
 
-input_path = 'green-eggs.txt'
+
+input_path = 'gettysburg.txt'
 
 # Open the file and turn it into one long string
 input_text = open_and_read_file(input_path)
@@ -77,3 +102,4 @@ chains = make_chains(input_text)
 random_text = make_text(chains)
 
 print(random_text)
+
